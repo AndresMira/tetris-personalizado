@@ -1,0 +1,23 @@
+{
+  "name": "tetris-personalizado",
+  "version": "1.0.0",
+  "description": "Juego de Tetris con sistema de puntuaciones locales",
+  "scripts": {
+    "start": "npx serve public",
+    "dev": "npx serve public",
+    "build": "echo 'No build steps required'"
+  },
+  "keywords": [
+    "tetris",
+    "juego",
+    "localstorage"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
