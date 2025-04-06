@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Personalizado</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game-info">
+            <h1>Mi Tetris</h1>
+            <div class="score-container">
+                <p>Puntuación: <span id="score">0</span></p>
+                <p>Nivel: <span id="level">1</span></p>
+                <p>Líneas: <span id="lines">0</span></p>
+            </div>
+            <div class="next-piece">
+                <h2>Siguiente Pieza</h2>
+                <canvas id="next-piece" width="100" height="100"></canvas>
+            </div>
+            <div class="controls">
+                <h2>Controles</h2>
+                <p>← → : Mover izquierda/derecha</p>
+                <p>↑ : Rotar</p>
+                <p>↓ : Bajar rápido</p>
+                <p>Espacio : Soltar pieza</p>
+                <p>P : Pausar</p>
+            </div>
+            <div class="button-container">
+                <button id="start-button">Iniciar Juego</button>
+                <button id="pause-button">Pausar</button>
+            </div>
+            <div class="player-info">
+                <h2>Jugador</h2>
+                <input type="text" id="player-name" placeholder="Tu nombre">
+                <button id="save-score">Guardar Puntuación</button>
+            </div>
+            <div class="highscores-link">
+                <a href="highscores.html" class="button">Ver Mejores Puntuaciones</a>
+            </div>
+        </div>
+        <div class="game-board">
+            <canvas id="tetris" width="300" height="600"></canvas>
+        </div>
+    </div>
+    
+    <!-- Controles táctiles con textos en lugar de iconos -->
+    <div class="touch-controls">
+        <div class="touch-btn" id="btn-left">←</div>
+        <div class="touch-btn" id="btn-rotate">↻</div>
+        <div class="touch-btn" id="btn-right">→</div>
+        <div class="touch-btn" id="btn-down">↓</div>
+        <div class="touch-btn" id="btn-drop">⤓</div>
+    </div>
+    
+    <script src="js/game.js"></script>
+</body>
+</html> 

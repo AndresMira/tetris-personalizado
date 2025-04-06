@@ -1,0 +1,207 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Información del juego */
+.game-info {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.game-info h1 {
+    color: #00BFFF;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+.score-container {
+    margin-bottom: 20px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.score-container p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
+
+.score-container span {
+    font-weight: bold;
+    color: #00BFFF;
+}
+
+.next-piece {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.next-piece h2 {
+    margin-bottom: 10px;
+    color: #00BFFF;
+    font-size: 1.2rem;
+}
+
+.next-piece canvas {
+    background-color: #000;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+.controls h2 {
+    margin-bottom: 10px;
+    color: #00BFFF;
+    font-size: 1.2rem;
+}
+
+.controls p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.button-container, .player-info, .highscores-link {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.player-info {
+    flex-direction: column;
+}
+
+.player-info h2 {
+    margin-bottom: 10px;
+    color: #00BFFF;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+button, .button {
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover, .button:hover {
+    background-color: #00A0E0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px solid #444;
+    background-color: #333;
+    color: white;
+}
+
+/* Tablero de juego */
+.game-board {
+    position: relative;
+}
+
+.game-board canvas {
+    background-color: #000;
+    border: 2px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Controles táctiles */
+.touch-controls {
+    display: none;
+    width: 100%;
+    max-width: 500px;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: rgba(34, 34, 34, 0.8);
+    border-radius: 10px;
+}
+
+.touch-btn {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 191, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    font-weight: bold;
+    color: white;
+}
+
+.touch-btn:active {
+    transform: scale(0.95);
+    background-color: rgba(0, 150, 200, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .game-info, .game-board {
+        width: 100%;
+        max-width: 500px;
+    }
+    
+    .game-board canvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    .touch-controls {
+        display: flex;
+    }
+} 

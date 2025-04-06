@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mejores Puntuaciones - Mi Tetris</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .highscores-container {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .highscores-container h1 {
+            color: #00BFFF;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+        }
+        
+        .score-table-container {
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        
+        .score-table-container h2 {
+            color: #00BFFF;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+        
+        .score-table th {
+            background-color: #00BFFF;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .score-table td {
+            padding: 10px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .score-table tr:hover {
+            background-color: #2a2a2a;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="highscores-container">
+            <h1>Mejores Puntuaciones</h1>
+            
+            <!-- Tabla de Puntuaciones Online -->
+            <div class="score-table-container">
+                <h2>Ranking Global Online</h2>
+                <table id="ranking-online" class="score-table">
+                    <tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Puntuación</th>
+                        <th>Nivel</th>
+                        <th>Líneas</th>
+                        <th>Fecha</th>
+                    </tr>
+                    <tr>
+                        <td colspan="6">Cargando puntuaciones online...</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Tabla de Puntuaciones Oficiales -->
+            <div class="score-table-container">
+                <h2>Ranking Oficial</h2>
+                <table id="ranking-official" class="score-table">
+                    <tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Puntuación</th>
+                        <th>Nivel</th>
+                        <th>Líneas</th>
+                        <th>Fecha</th>
+                    </tr>
+                    <tr>
+                        <td colspan="6">Cargando puntuaciones oficiales...</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Tabla de Puntuaciones Globales -->
+            <div class="score-table-container">
+                <h2>Ranking Global</h2>
+                <table id="ranking-global" class="score-table">
+                    <tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Puntuación</th>
+                        <th>Nivel</th>
+                        <th>Líneas</th>
+                        <th>Fecha</th>
+                    </tr>
+                    <tr>
+                        <td colspan="6">No hay puntuaciones globales registradas aún.</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Tabla de Puntuaciones Locales -->
+            <div class="score-table-container">
+                <h2>Tus Puntuaciones</h2>
+                <table id="ranking-local" class="score-table">
+                    <tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Puntuación</th>
+                        <th>Nivel</th>
+                        <th>Líneas</th>
+                        <th>Fecha</th>
+                    </tr>
+                    <tr>
+                        <td colspan="6">No has guardado puntuaciones localmente aún.</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="button-container">
+                <a href="index.html" class="button">Volver al Juego</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Función para formatear la fecha
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+            
+            // Función para mostrar puntuaciones en tabla
+            function displayScores(scores, tableId) {
+                const table = document.getElementById(tableId);
+                
+                if (!scores || scores.length === 0) {
+                    table.innerHTML = 
+                    `<tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Puntuación</th>
+                        <th>Nivel</th>
+                        <th>Líneas</th>
+                        <th>Fecha</th>
+                    </tr>
+                    <tr>
+                        <td colspan="6">No hay puntuaciones registradas aún</td>
+                    </tr>`;
+                    return;
+                }
+                
+                // Ordenar por puntuación (de mayor a menor)
+                scores.sort((a, b) => b.score - a.score);
+                
+                // Generar filas de la tabla
+                let html = 
+                `<tr>
+                    <th>Posición</th>
+                    <th>Jugador</th>
+                    <th>Puntuación</th>
+                    <th>Nivel</th>
+                    <th>Líneas</th>
+                    <th>Fecha</th>
+                </tr>`;
+                
+                html += scores.map((score, index) => `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${score.name}</td>
+                        <td>${score.score}</td>
+                        <td>${score.level}</td>
+                        <td>${score.lines}</td>
+                        <td>${formatDate(score.date)}</td>
+                    </tr>
+                `).join('');
+                
+                table.innerHTML = html;
+            }
+            
+            // Cargar puntuaciones locales
+            const localScores = JSON.parse(localStorage.getItem('tetrisHighScores') || '[]');
+            displayScores(localScores, 'ranking-local');
+            
+            // Cargar puntuaciones globales de localStorage
+            const globalScores = JSON.parse(localStorage.getItem('tetrisGlobalHighScores') || '[]');
+            displayScores(globalScores, 'ranking-global');
+            
+            // Cargar puntuaciones online desde JSONBin.io
+            try {
+                const jsonBinUrl = "https://jsonbin.org/juegos-tetris/scores";
+                
+                fetch(jsonBinUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('No se pudieron cargar las puntuaciones globales');
+                        }
+                        return response.json();
+                    })
+                    .then(scores => {
+                        if (!Array.isArray(scores)) scores = [];
+                        
+                        // Ordenar por puntuación (de mayor a menor)
+                        scores.sort((a, b) => b.score - a.score);
+                        
+                        // Mostrar en la tabla online
+                        displayScores(scores, 'ranking-online');
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar puntuaciones online:', error);
+                        const onlineTable = document.getElementById('ranking-online');
+                        if (onlineTable) {
+                            onlineTable.innerHTML = '<tr><th>Posición</th><th>Jugador</th><th>Puntuación</th><th>Nivel</th><th>Líneas</th><th>Fecha</th></tr><tr><td colspan="6">Error al cargar puntuaciones online</td></tr>';
+                        }
+                    });
+            } catch (error) {
+                console.error('Error general al cargar puntuaciones online:', error);
+            }
+            
+            // Cargar puntuaciones oficiales desde el archivo JSON
+            fetch('data/global-scores.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al cargar puntuaciones oficiales');
+                    }
+                    return response.json();
+                })
+                .then(officialScores => {
+                    displayScores(officialScores, 'ranking-official');
+                })
+                .catch(error => {
+                    console.error('Error al cargar puntuaciones oficiales:', error);
+                    document.getElementById('ranking-official').innerHTML = 
+                    `<tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Puntuación</th>
+                        <th>Nivel</th>
+                        <th>Líneas</th>
+                        <th>Fecha</th>
+                    </tr>
+                    <tr>
+                        <td colspan="6">Error al cargar puntuaciones oficiales</td>
+                    </tr>`;
+                });
+        });
+    </script>
+</body>
+</html> 
